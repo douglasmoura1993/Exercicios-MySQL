@@ -1,0 +1,30 @@
+select * from cliente where salario < 2500.00;
+
+
+Seleciona salário menor que 2500.
+
+
+
+select distinct cli_nome, cli_fone from cliente order by cli_nome desc; 
+
+
+
+seleciona nome em ordem decrecente.
+
+select * from cliente where salario > 1500.00;
+
+
+seleciona salário maior que 1500.
+
+
+
+select * from cliente where cli_nome like '%Oliveira%';
+
+
+seleciona cliente com o nome oliveira.
+
+
+
+select * from cliente where cli_fone not like '9%';
+
+seleciona o fone que não começa com 9. 

@@ -1,0 +1,38 @@
+1) crie uma trigger que desconte, na tabela estoque, a quantidade correspondente a
+uma compra quando um registro é removido da tabela compra;
+
+DELIMITER $$
+CREATE TRIGGER COMPRA_REM
+AFTER DELETE ON COMPRA
+FOR EACH ROW
+BEGIN
+UPDATE ESTOQUE
+SET QTDE = QTDE - OLD.QTDE
+WHERE COD_PROD = OLD.COD_PROD;
+END $$
+DELIMITER ;
+
+select * from compra;
+select * from estoque;
+SET SQL_SAFE_UPDATES=0;
+DELETE FROM COMPRA WHERE COD_COMPRA = 500376;
+
+
+2) crie uma trigger que atualize a quantidade da tabela estoque sempre que a
+quantidade da tabela compra for atualizada;
+
+
+
+DELIMITER $$
+CREATE TRIGGER COMPRA_REM
+AFTER UPDATE ON COMPRA
+FOR EACH ROW
+BEGIN
+UPDATE ESTOQUE
+SET QTDE = QTDE + NEW.QTDE - OLD.QTDE
+WHERE COD_PROD = OLD.COD_PROD;
+END $$
+DELIMITER ;
+select * from compra;
+select * from estoque;
+UPDATE COMPRA SET QTDE = 100 WHERE COD_PROD = 201002;

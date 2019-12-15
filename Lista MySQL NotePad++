@@ -1,0 +1,51 @@
+Exercício A:
+
+1. Listar os cursos que possuem a letra m no corpo do seu nome.
+
+---select * from curso where nome_curso like '%m%';
+
+2. Listar todas as disciplinas, exceto sistemas operacionais (usando NOT IN).
+
+---select * from disciplina where nome_disc not like 'Sistemas Operacionais';
+
+3. Listar os nomes de todos os alunos e os respectivos cursos de cada um deles.
+
+---select * from aluno, curso where aluno.id_curso = curso.id_curso;
+
+4. Listar os nomes dos professores e a disciplina que cada um deles ministra.
+
+---select * from professor, disciplina d where professor.id_disc = d.id_disc;
+
+5. Listar os nomes de todas as disciplinas que estão associadas a cada curso.
+
+---select * from disciplina, curso where curso.id_curso = disciplina.id_curso;
+
+Exercicio B:
+
+1. Listar os filmes, cujos nomes começam com A e que são brasileiros.
+
+---select * from filme where tit_pt_filme like '%a' and pais_orig_filme = 'Brasil';
+
+2. Listar todos os atores cujos sobrenomes comecem com C e tenham idade superior ou igual a 44 anos.
+
+---select * from ator_diretor where nome_atord like '%c%' and idade_atord >= 44;
+
+3. Listar o filme e seu respectivo gênero, quando o gênero for igual a ação, aventura, animação ou drama.
+
+---select * from filme, genero 
+where  genero.id_gen_filme = filme.id_gen_filme and nome_genero in ('Ação','Drama', 'Animação','Aventura');
+
+4. Listar o nome dos diretores e os respectivos filmes de cada um deles, quando o país de origem do filme NÃO for Estados Unidos.
+
+---select * from ator_diretor, filme 
+where  ator_diretor.id_atord = filme.id_atord and pais_orig_filme not in ('Estados Unidos');
+
+5. Listar todos os filmes que passam no cinema Cinemark Metrô Santa Cruz.
+
+---select * from cinema where nome_cin = 'Cinemark Metro Santa Cruz';
+
+
+6. Listar o elenco dos filmes Noé, Rio 2, Entre nós e Alemão.
+
+---select * from filme, ator_diretor
+where filme.id_atord = ator_diretor.id_atord and tit_pt_filme in ('Noé','Rio 2','Entre nós','Alemão');

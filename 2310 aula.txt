@@ -1,0 +1,94 @@
+DELIMITER $$
+create procedure nomes(id1 int,id2 int,nome1 nvarchar(40),nome2 nvarchar(40)
+)
+BEGIN
+select concat(nome1 ,' tem ', id1 , ' anos'),
+concat(nome2 ,' tem ', id2 , ' anos');
+if id1 > id2 then
+select concat(nome1 ,' é mais novo que ', nome2);
+elseif id1 < id2 then
+select concat(nome1 ,' é mais novo que ', nome2);
+elseif id1 = id2 then
+select concat('São iguais');
+end if;
+end $$
+delimiter ;
+
+call nomes(20,22,'Matheus','Camila');
+
+
+delimiter $$
+CREATE PROCEDURE matriz(a1 int , a2 int, a3 int, b1 int, b2 int, b3 int, c1 int, c2 int, c3 int)
+BEGIN
+declare det int;
+set det = (a1*b2*c3)+(a2*b3*c1)+(a3*b1*c2) - (a3*b2*c1)-(a1*b3*c3)-(a2*b1*c2);
+
+SELECT concat(' a determinante é  ', det) as determinante;
+END $$
+delimiter ;
+
+drop procedure matriz;
+call matriz(2,1,0,3,2,5,1,4,6);
+
+
+DELIMITER //
+CREATE PROCEDURE EncontraNomes (nome1 nvarchar(40), nome2 nvarchar(40), nome3 nvarchar(40), nome4 nvarchar(40))
+BEGIN
+
+ set @idade1 := (select idade from pessoa where Nome Like nome1);
+ set @idade2 := (select idade from pessoa where Nome Like nome2);
+ set @idade3 := (select idade from pessoa where Nome Like nome3);
+ set @idade4 := (select idade from pessoa where Nome Like nome4);
+ -- davi select @idade1 9 ;
+-- felipe select @idade2 14;
+-- tocantins select @idade3 17 ;
+-- alex select @idade4 80 ;
+ IF(@idade1 <= 10) THEN
+   SELECT concat(nome1, 'é criança');
+ ELSEIF (@idade2 <= 10) THEN
+   SELECT concat(nome2, 'é criança');
+ ELSEIF (@idade3 <= 10) THEN
+   SELECT concat(nome3, 'é criança');
+ ELSEIF (@idade4 <= 10) THEN
+   SELECT concat(nome4, 'é criança');
+  END IF;
+ IF(@idade1 <= 15 AND @idade1 > 10) THEN
+   SELECT concat(nome1, 'é juvenil');
+ ELSEIF (@idade2 <= 15 AND @idade2 > 10) THEN
+   SELECT concat(nome2, 'é juvenil');
+ ELSEIF (@idade3 <= 15 AND @idade3 > 10) THEN
+   SELECT concat(nome3, 'é juvenil');
+ ELSEIF (@idade4 <= 15 AND @idade4 > 10) THEN
+   SELECT concat(nome4, 'é juvenil');
+ END IF;
+
+ IF(@idade1 <= 18 AND @idade1 > 15) THEN
+   SELECT concat(nome1, 'é adolescente');
+ ELSEIF (@idade2 <= 18 AND @idade2 > 15) THEN
+   SELECT concat(nome2, 'é adolescente');
+ ELSEIF (@idade3 <= 18 AND @idade3 > 15) THEN
+   SELECT concat(nome3, 'é adolescente');
+ ELSEIF (@idade4 <= 18 AND @idade4 > 15) THEN
+   SELECT concat(nome4, 'é adolescente');
+ END IF;
+ IF(@idade1 < 59 AND @idade1 > 18) THEN
+   SELECT concat(nome1, 'é adulto');
+ ELSEIF (@idade2 < 59 AND @idade2 > 18) THEN
+   SELECT concat(nome2, 'é adulto');
+ ELSEIF (@idade3 < 59 AND @idade3 > 18) THEN
+   SELECT concat(nome3, 'é adulto');
+ ELSEIF (@idade4 < 59 AND @idade4 > 18) THEN
+   SELECT concat(nome4, 'é adulto');
+ END IF;
+ IF(@idade1 > 59) THEN
+   SELECT concat(nome1, 'é idoso');
+ ELSEIF (@idade2 > 59) THEN
+   SELECT concat(nome2, 'é idoso');
+ ELSEIF (@idade3 > 59) THEN
+   SELECT concat(nome3, 'é idosos');
+ ELSEIF (@idade4 > 59) THEN
+   SELECT concat(nome4, 'é idoso');
+ END IF;
+ 
+END//
+DELIMITER ;

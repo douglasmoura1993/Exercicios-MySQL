@@ -1,0 +1,47 @@
+
+1. Recupere o nome e tipo de todos os animais cujos nomes iniciem com T ou M:
+
+select pet_nome as Nome, pet_tipo as Raça from animal_pet where pet_nome like 'T%' or 'M%';
+
+2. Recupere o nome de todos os proprietários e seus respectivos animais, quando o tipo deles for cachorro:
+
+select prop_nome AS Proprietario, proprietario.prop_id AS Registro, animal_pet.prop_id as RegistroProp, pet_nome as Nome, pet_tipo as Raça
+from proprietario left join animal_pet on proprietario.prop_id = animal_pet.prop_id where pet_tipo = 'Cachorro';
+
+3. Recupere o nome dos animais e o tipo deles, quando a proprietária for a Isabel:
+
+SELECT PET_NOME AS NOME, PET_TIPO AS RAÇA, ANIMAL_PET.PROP_ID AS ID, PROPRIETARIO.PROP_ID AS IdPROPRIETARIO, PROP_NOME AS NOMEPROP
+FROM ANIMAL_PET LEFT JOIN PROPRIETARIO ON ANIMAL_PET.PROP_ID = PROPRIETARIO.PROP_ID WHERE PROP_NOME = 'Isabel';
+
+4) Recupere o nome de todos os animais que serão consultados pela veterinária Marta e também a data e hora da consulta:
+
+SELECT PET_NOME,ANIMAL_PET.PET_ID, CONSULTA.PET_ID, CONSULTA.VET_ID, VETERINARIO.VET_ID, VET_NOME
+FROM CONSULTA
+LEFT JOIN ANIMAL_PET ON CONSULTA.PET_ID = ANIMAL_PET.PET_ID
+LEFT JOIN VETERINARIO ON VETERINARIO.VET_ID = CONSULTA.VET_ID WHERE VET_NOME = 'Marta';
+
+
+5) Crie uma view que recupere o nome de todos os proprietários que possuem o mesmo tipo de animal do proprietário Marcos:
+
+-- Comando que Cria a VIEW:
+
+create view vw_Nome as select animal_pet.pet_nome, animal_pet.pet_id, animal_pet.pet_tipo, animal_pet.prop_id, proprietario.prop_nome from animal_pet 
+inner join proprietario on animal_pet.prop_id = proprietario.prop_id;
+
+-- Select dos nomes dos proprietarios onde o tipo dos pets é igual ao tipo do pet do Marcos:
+ 
+select prop_nome, pet_tipo from vw_nome 
+where pet_tipo = (select pet_tipo from vw_nome where prop_nome = 'Marcos');
+
+
+6) Recupere a quantidade de animais do tipo ‘Gato’, apresentando o nome da coluna como qtde_gato:
+
+SELECT COUNT(PET_TIPO) AS QTDE_GATO FROM ANIMAL_PET WHERE PET_TIPO = 'Gato';
+
+7) Recupere o nome do veterinário que possui o maior salário:
+
+SELECT VET_NOME AS NOME, MAX(VET_SALARIO) AS SALARIO FROM VETERINARIO;
+
+8) Recupere a média salarial dos veterinários com, no máximo, dois dígitos após a vírgula:
+
+SELECT ROUND(AVG(VET_SALARIO),2) FROM VETERINARIO ;
