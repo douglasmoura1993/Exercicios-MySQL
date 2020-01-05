@@ -1,0 +1,29 @@
+1. Faça um SELECT que selecione todos os alunos do sexo feminino.
+	R: SELECT NOME AS ALUNO, SEXO FROM ALUNO WHERE SEXO = 'F';
+
+2. Faça um SELECT com os dados de todos que nasceram entre 1/jan/2000 e 31/dez/2015.
+	R: SELECT NOME AS GAFANHOTOS, NASCIMENTO FROM ALUNO 
+	   WHERE NASCIMENTO BETWEEN '2000/01/1' AND '2015/12/31' GROUP BY NASCIMENTO;
+
+3. Faça um select com todos os nomes de todos os homens que trabalham como programadores.
+	R: SELECT NOME, PROFISSAO, SEXO FROM ALUNO WHERE PROFISSAO = 'PROGRAMADOR' AND SEXO = 'M';
+
+4. Todas as mulheres que nasceram no brasil e que seu nome iniciado com a letra j.
+	R: SELECT SEXO, NOME, NACIONALIDADE FROM ALUNO WHERE NACIONALIDADE = 'BRASIL' AND NOME LIKE 'J%';
+
+5. Uma lista com todos os homens que tem silva, não nasceram no brasil e pesam menos de 100kg.
+	R:SELECT SEXO, NOME, NACIONALIDADE, PESO FROM ALUNO 
+          WHERE NACIONALIDADE != 'BRASIL' AND NOME LIKE '%SILVA%' AND PESO < 100 AND SEXO = 'M';
+
+6. qual é a maior altura entre homens que moram no brasil?
+	R: SELECT MAX(ALTURA) AS ALTURA, NOME FROM ALUNO WHERE SEXO = 'M';
+
+7. qual é a media de peso dos homens cadastrados?
+	R: SELECT AVG(PESO)  AS MÉDIA_DE_PESO FROM ALUNO WHERE SEXO = 'M';
+
+8. qual é o menor peso entre as mulheres que nasceram fora do brasil entre 01/jan/1990 e 31/dez/2000?
+	R: SELECT MIN(PESO) AS MENOR, SEXO, NACIONALIDADE, NOME FROM ALUNO 
+           WHERE NACIONALIDADE != 'BRASIL' AND SEXO != 'M' AND NASCIMENTO BETWEEN '1990/01/01' AND '2000/12/31';
+
+9. quantas mulheres de mais de 1.90 de altura?
+	R: SELECT * FROM ALUNO WHERE ALTURA > 1.90 AND SEXO = 'F';
